@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai";
+import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 
 
 
@@ -9,6 +9,11 @@ const configuration = new Configuration({
 });
 
 const openai = new OpenAIApi(configuration);
+
+const instructionMessage: ChatCompletionRequestMessage = {
+  role: "system",
+  content: "You are a code generator. You must answer only in markdown code snippest. Use Code Comments for explanations."
+}
 
 export async function POST(
   req: Request
@@ -19,7 +24,6 @@ export async function POST(
     const { messages  } = body;
 
     if (!userId) {
-      console.log("HELLO WORLD")
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -35,14 +39,13 @@ export async function POST(
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages
+      messages: [instructionMessage, ...messages]
     });
 
 
     return NextResponse.json(response.data.choices[0].message);
-    
   } catch (error) {
-    console.log('[CONVERSATION_ERROR]', error);
+    console.log('[CODE_ERROR]', error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 };
