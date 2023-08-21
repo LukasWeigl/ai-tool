@@ -6,6 +6,7 @@ import { Montserrat } from "next/font/google";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
+  CircleSlash,
   Code,
   ImageIcon,
   LayoutDashboard,
@@ -31,10 +32,10 @@ const routes = [
     color: "text-violet-700",
   },
   {
-    label: "Image Generation",
-    icon: ImageIcon,
-    href: "/image",
-    color: "text-pink-700",
+    label: "Error Diagnostics",
+    icon: CircleSlash,
+    href: "/error",
+    color: "text-red-700",
   },
   {
     label: "Video Generation",
