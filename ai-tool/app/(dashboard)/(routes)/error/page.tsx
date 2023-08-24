@@ -33,7 +33,7 @@ const ErrorPage = () => {
       errorMessage: "",
       userCode: "",
     },
-});
+  });
 
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -101,12 +101,12 @@ const ErrorPage = () => {
               <FormField
                 name="userCode"
                 render={({ field }) => (
-                  <FormItem className="code-style col-span-12 lg:col-span-10">
+                  <FormItem className="col-span-12 lg:col-span-10">
                     <FormControl className="m-0 p-0">
                       <textarea
                         className="border-0 w-full h-80 outline-none
                      focus-visible:ring-0
-                     focus-visible:ring-transparent code-style
+                     focus-visible:ring-transparent 
                      overflow-auto my-2 bg-black/10 p-2 rounded-lg" // Added styles from ReactMarkdown
                         disabled={isLoading}
                         placeholder="Code Sample here"
@@ -116,11 +116,16 @@ const ErrorPage = () => {
                   </FormItem>
                 )}
               />
-               <Button className="col-span-12 lg:col-span-2 w-full" disabled={isLoading}>Generate</Button>
+              
+              <Button
+                className="col-span-12 lg:col-span-2 w-full mt-2"
+                disabled={isLoading}
+              >
+                Generate
+              </Button>
+          
             </form>
-            
           </Form>
-       
         </div>
         <div className="space-y-4 mt-4">
           {isLoading && (
